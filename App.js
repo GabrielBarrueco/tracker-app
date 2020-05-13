@@ -1,19 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-export default function App() {
+import {Provider as AuthProvider} from './src/context/authContext'
+
+import { setNavigator } from './src/NavigationRef'
+
+import Routes from './src/routes';
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <Routes />
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default () => {
+  return(
+    <AuthProvider>
+      <App Ref={(navigator) => setNavigator(navigator) }/>
+    </AuthProvider>
+  )
+}
